@@ -1,13 +1,16 @@
 import builtins
-import logging
+import os
 
 import pytest
-from selenium.webdriver.common.by import By
 
 from src.consts import consts
-from src.utils import logger, create_new_handler_logger, file_util, common
+from src.pages.login.login_page import LoginPage
+from src.utils import logger, file_util
 from src.utils.browser_driver import create_chrome_driver
-from src.utils.element import wait_for_element_displayed, find_element
+
+
+def pytest_addoption(parser):
+    parser.addoption("--env", action="store")
 
 
 @pytest.fixture(scope="session")
@@ -15,24 +18,27 @@ def before_all_tests(request):  # Before all tests, run this function one time o
     print("\x00")  # print a non-printable character to break a new line on console
     logger.info("=== Start Pytest session ===")
 
+    # Read environment from a parameter named 'env'
+    env = str(request.config.getoption("--env"))
+    config = file_util.read_properties_file(consts.ENV_CONFIG_FILE % env)
+
     # Init Chrome driver
     driver = create_chrome_driver()
     builtins.driver = driver
 
     # Navigate to test site
-    driver.get("https://cos2-ci.it-development.com/standard/#!/identity/login")
-    # Wait until the User ID input displays
-    wait_for_element_displayed((By.XPATH, "//input[@placeholder='User ID']"))
-    # Enter user credential
-    find_element((By.XPATH, "//input[@placeholder='User ID']")).send_keys("sonle")
-    find_element((By.XPATH, "//input[@placeholder='Password']")).send_keys("Aaaa!111")
-    find_element((By.XPATH, "//button[text()='Sign me in']")).click()
-    # Wait a little time to observe
-    common.sleep(5)
+    driver.get(config["url"])
+    login_page = LoginPage()
+    login_page.type_user(config["username"])
+    login_page.type_password(config["password"])
+    login_page.click_sign_me_in_button()
 
 
-def pytest_sessionfinish():
+def pytest_sessionfinish(session):
     # Quit Chrome driver
     if hasattr(builtins, "driver"):
         getattr(builtins, "driver").quit()
+    logger.info("Generate Allure report")
+    os.system(f"allure generate --clean {session.config.getoption('allure_report_dir')}")
+    os.system(f"allure open")
     logger.info("=== End Pytest session ===")

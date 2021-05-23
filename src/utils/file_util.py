@@ -1,6 +1,8 @@
 import os
 import shutil
 
+from src.utils import logger
+
 
 def create_folder(folder_path):
     if not os.path.exists(folder_path):
@@ -28,3 +30,22 @@ def read_file(file_path) -> str:
 
 def is_file_exist(file_path):
     return os.path.exists(file_path)
+
+
+def read_properties_file(file_path):
+    separator = "="
+    keys = {}
+    try:
+        with open(file_path, 'r', encoding='utf8') as data:
+            for line in data:
+                if separator in line:
+                    # Find the name and value by splitting the string
+                    name, value = line.split(separator, 1)
+
+                    # Assign key value pair to dict
+                    # strip() removes white space from the ends of strings
+                    keys[name.strip()] = value.strip()
+        return keys
+    except FileNotFoundError:
+        logger.warning(f"File not found: {file_path}")
+        return None
