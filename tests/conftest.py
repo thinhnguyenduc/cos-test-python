@@ -1,5 +1,4 @@
 import builtins
-import os
 
 import pytest
 
@@ -38,7 +37,4 @@ def pytest_sessionfinish(session):
     # Quit Chrome driver
     if hasattr(builtins, "driver"):
         getattr(builtins, "driver").quit()
-    logger.info("Generate Allure report")
-    os.system(f"allure generate --clean {session.config.getoption('allure_report_dir')}")
-    os.system(f"allure open")
     logger.info("=== End Pytest session ===")
