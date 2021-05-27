@@ -2,7 +2,7 @@ import builtins
 
 import pytest
 
-from src.consts import consts
+from src.consts import consts, runtime
 from src.pages.login.login_page import LoginPage
 from src.utils import logger, file_util
 from src.utils.browser_driver import create_chrome_driver
@@ -20,6 +20,11 @@ def before_all_tests(request):  # Before all tests, run this function one time o
     # Read environment from a parameter named 'env'
     env = str(request.config.getoption("--env"))
     config = file_util.read_properties_file(consts.ENV_CONFIG_FILE % env)
+    file_util.create_folder(consts.SCREENSHOT_DIR.format(env))
+    consts.ENV_CONFIG_FILE.format(env)
+
+    # Set global variables
+    runtime.env = env
 
     # Init Chrome driver
     driver = create_chrome_driver()
