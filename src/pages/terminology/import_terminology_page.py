@@ -4,9 +4,6 @@ from src.utils import logger
 from src.utils.element import send_keys, find_element
 
 
-def click_on_action_button():
-    logger.info("3. Click on the action button")
-    find_element((By.CSS_SELECTOR, "div.pull-right button")).click()
 
 
 class ImportTerminologyPage:
@@ -29,6 +26,7 @@ class ImportTerminologyPage:
     BUTTON_CANCEL_MODEL = (By.CSS_SELECTOR, ".modal-footer .btn-danger")
     LINK_NEW_TER = (By.CSS_SELECTOR, ".list-horizontal a")
     BUTTON_ACTION = (By.CSS_SELECTOR, ".pull-right button")
+    PROGRESS_BAR = (By.CSS_SELECTOR, ".progress-bar")
 
     # ACTIONS
     # -------
@@ -83,10 +81,14 @@ class ImportTerminologyPage:
     def verify_terminology_name(self,name_terminology):
         logger.info(". Verify Terminology Name")
         assert find_element(self.TERMINOLOGY_NAME_DETAIL).text == name_terminology
-
         pass
 
     def click_on_cancel_button(self):
         logger.info(". Click on Cancel button to back on Entity list of Terminology")
         find_element(self.BUTTON_CANCEL).click()
         pass
+
+    def click_on_action_button(self):
+        logger.info("3. Click on the action button")
+        find_element((By.CSS_SELECTOR, "div.pull-right button")).click()
+

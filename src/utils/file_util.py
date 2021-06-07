@@ -1,5 +1,6 @@
 import os
 import shutil
+import time
 
 from src.utils import logger
 
@@ -30,6 +31,18 @@ def read_file(file_path) -> str:
 
 def is_file_exist(file_path):
     return os.path.exists(file_path)
+
+
+def is_file_exist_in_time(file_path, time_to_wait=10):
+    time_counter = 0
+    flag = True
+    while (os.path.exists(file_path) == False):
+        time.sleep(1)
+        time_counter += 1
+        if time_counter > time_to_wait:
+            flag = False
+            break
+    return flag
 
 
 def read_properties_file(file_path):

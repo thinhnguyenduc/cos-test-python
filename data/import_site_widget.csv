@@ -1,0 +1,3 @@
+"Site ID - prefix";"Site ID - number";"Site ID";"Site ID (client)";Name;Criticity;Host;"Site sharing";Description;Type;"Maintenance status";"Next preventive maintenance visit";"O&M subcontractor";"O&M manager";Status;"Coordinates - Latitude - WGS 84";"Coordinates - Longitude - WGS 84";"Coordinates - Elevation";"Teleporte Site Id";"Site Sera4";"Site Sera4 Info";"Sync To Sera4's Site";"Sera4 site id";"WO - ID - prefix";"WO - ID - number";"WO - ID"
+S;"8";"S-00008";;test;;;false;;Rooftop;Active;;;;Existing;45.817134;4.719668;345.0;;false;;false;;WO;"7";"WO-007"
+S;"8";"S-00008";;test;;;false;;Rooftop;Active;;;;Existing;45.817134;4.719668;345.0;;false;;false;;WO;"8";"WO-008"

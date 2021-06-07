@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
+from src.consts import consts
+
 
 def create_chrome_driver() -> WebDriver:
     try:
@@ -23,7 +25,7 @@ def create_chrome_driver() -> WebDriver:
         #     chrome_options.add_argument("--load-extension=" + extension)
         chrome_options.add_experimental_option("prefs", {
             "credentials_enable_service": False,
-            # "download.default_directory": consts.DOWNLOAD_DIR,
+            "download.default_directory": consts.DOWNLOAD_DIR,
             "download.directory_upgrade": True,
             "download.prompt_for_download": False
         })

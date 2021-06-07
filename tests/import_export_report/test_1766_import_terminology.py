@@ -12,7 +12,7 @@ class TC1766(MasterTest):
 
     def test_case_01_import_1_level(self):
         import_terminology_page = ImportTerminologyPage()
-        
+        # Roi gio bi gi ne?
         import_terminology_page.click_on_administrator_icon()
         import_terminology_page.click_on_terminology_editor()
         import_terminology_page.click_on_action_button()
@@ -32,15 +32,10 @@ class TC1766(MasterTest):
         import_terminology_page.click_on_cancel_button()
         # End page object
 
-        # self.delete_terminology(name_terminology)
+        self.delete_terminology(name_terminology)
         common.sleep(5)
 
     def create_terminology(self, name_terminology: ImportTerminologyPage):
-        # param nay co kieu du lieu la 1 class Import, hieu chua ? ok
-
-        # logger.info("6.Enter Terminology Name")
-        # send_keys(self.TERMINOLOGY_NAME, name_terminology, False, True)
-
         resource_terminology = "ter" + str(randint(50, 1001))
         logger.info("7. Enter Terminology Resource")
         logger.debug({resource_terminology})
@@ -65,9 +60,8 @@ class TC1766(MasterTest):
         logger.debug(find_element(self.TERMINOLOGY_NAME_DETAIL).text)
         assert find_element(self.TERMINOLOGY_NAME_DETAIL).text == name_terminology
 
-    def delete_terminology(self, terminology):
 
-    def delete_terminology2(self, name_terminology):
+    def delete_terminology(self, name_terminology):
         logger.info("15. Enter terminology on search text box")
         search_textbox = find_element(self.SEARCH_TERMINOLOGY_INTERNAL_TEXTBOX)
         search_textbox.clear()
