@@ -4,8 +4,6 @@ from src.utils import logger
 from src.utils.element import send_keys, find_element
 
 
-
-
 class ImportTerminologyPage:
     # ELEMENTS
     # --------
@@ -27,16 +25,17 @@ class ImportTerminologyPage:
     LINK_NEW_TER = (By.CSS_SELECTOR, ".list-horizontal a")
     BUTTON_ACTION = (By.CSS_SELECTOR, ".pull-right button")
     PROGRESS_BAR = (By.CSS_SELECTOR, ".progress-bar")
+    LABEL_HEADER = (By.CSS_SELECTOR, ".content-header h1 translate")
 
     # ACTIONS
     # -------
     def enter_name(self, name_terminology):
         logger.info(f"Enter name: {name_terminology}")
-        send_keys(self.TERMINOLOGY_NAME, name_terminology, False, True)
+        send_keys(self.TERMINOLOGY_NAME, name_terminology, press_enter=False, clear=True)
 
     def enter_resource_name(self, resource_terminology):
-        logger.info(f"Enter name: {resource_terminology}")
-        send_keys(self.TERMINOLOGY_RESOURCE, resource_terminology, False, True)
+        logger.info(f"Enter resource name: {resource_terminology}")
+        send_keys(self.TERMINOLOGY_RESOURCE, resource_terminology, press_enter=False, clear=True)
 
     def click_on_administrator_icon(self):
         logger.info("1. Go to Administration Page")
@@ -78,7 +77,7 @@ class ImportTerminologyPage:
         find_element(self.BUTTON_ACTION).click()
         pass
 
-    def verify_terminology_name(self,name_terminology):
+    def verify_terminology_name(self, name_terminology):
         logger.info(". Verify Terminology Name")
         assert find_element(self.TERMINOLOGY_NAME_DETAIL).text == name_terminology
         pass
@@ -92,3 +91,28 @@ class ImportTerminologyPage:
         logger.info("3. Click on the action button")
         find_element((By.CSS_SELECTOR, "div.pull-right button")).click()
 
+    def verify_import_form_is_loaded(self):
+        logger.info(". Verify import terminology page is loaded ")
+        assert find_element(self.LABEL_HEADER, timeout=90).text == 'Import'
+        pass
+
+    def enter_name_on_internal_textbox(self, param):
+        logger.info(". Enter terminology name in the interal textbox ")
+        send_keys(self.SEARCH_TERMINOLOGY_INTERNAL_TEXTBOX, param, press_enter=True, clear=True)
+        pass
+
+    def click_on_icon_search(self):
+        logger.info("15. Search with terminology name")
+        find_element(self.SEARCH_TERMINOLOGY_INTERNAL_TEXTBOX).click()
+
+        pass
+
+    def click_on_delete_icon(self):
+        logger.info("16. Delete with terminology above")
+        find_element(self.DELETE_ICON).click()
+        pass
+
+    def click_on_button_cancel_on_model(self):
+        logger.info("17. Display a popup message and click on Delete button")
+        find_element(self.BUTTON_CANCEL_MODEL).click()
+        pass
