@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from src.utils import logger
-from src.utils.element import send_keys, find_element
+from src.utils.element import send_keys, find_element, send_keys_timeout, wait_for_element_displayed
 
 
 class ImportTerminologyPage:
@@ -26,16 +26,17 @@ class ImportTerminologyPage:
     BUTTON_ACTION = (By.CSS_SELECTOR, ".pull-right button")
     PROGRESS_BAR = (By.CSS_SELECTOR, ".progress-bar")
     LABEL_HEADER = (By.CSS_SELECTOR, ".content-header h1 translate")
+    TEXTBOX_DEEP = (By.CSS_SELECTOR, "[name='import_parsing_max_levels']")
 
     # ACTIONS
     # -------
     def enter_name(self, name_terminology):
         logger.info(f"Enter name: {name_terminology}")
-        send_keys(self.TERMINOLOGY_NAME, name_terminology, press_enter=False, clear=True)
+        send_keys_timeout(self.TERMINOLOGY_NAME, name_terminology, timeout=90, press_enter=False, clear=True)
 
     def enter_resource_name(self, resource_terminology):
         logger.info(f"Enter resource name: {resource_terminology}")
-        send_keys(self.TERMINOLOGY_RESOURCE, resource_terminology, press_enter=False, clear=True)
+        send_keys_timeout(self.TERMINOLOGY_RESOURCE, resource_terminology, 120, press_enter=False, clear=True)
 
     def click_on_administrator_icon(self):
         logger.info("1. Go to Administration Page")
@@ -53,7 +54,7 @@ class ImportTerminologyPage:
         logger.info(f"Select Target terminology: {value}")
 
     def enter_csv_file(self, csv_file):
-        logger.info("5. Upload file ")
+        logger.info(f". Upload file {csv_file} ")
         find_element((By.CSS_SELECTOR, "input[type=file]")).send_keys(csv_file)
         pass
 
@@ -93,7 +94,8 @@ class ImportTerminologyPage:
 
     def verify_import_form_is_loaded(self):
         logger.info(". Verify import terminology page is loaded ")
-        assert find_element(self.LABEL_HEADER, timeout=90).text == 'Import'
+        wait_for_element_displayed(self.LABEL_HEADER)
+        assert find_element(self.LABEL_HEADER).text == 'Import'
         pass
 
     def enter_name_on_internal_textbox(self, param):
@@ -115,4 +117,9 @@ class ImportTerminologyPage:
     def click_on_button_cancel_on_model(self):
         logger.info("17. Display a popup message and click on Delete button")
         find_element(self.BUTTON_CANCEL_MODEL).click()
+        pass
+
+    def enter_deep(self, param):
+        logger.info("17. Display a popup message and click on Delete button")
+        send_keys(self.TEXTBOX_DEEP, param)
         pass
