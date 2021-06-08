@@ -28,6 +28,7 @@ def find_element(element: tuple, timeout=60, wait=True) -> WebElement:
         log = "Element not found with locator %s value '%s' after %d seconds" % (locator, value, timeout)
         raise NoSuchElementException(log)
 
+
 def wait_element_invisible(element: tuple, timeout=60, wait=True) -> WebElement:
     """
     Find an element existing in DOM with a timeout in seconds.
@@ -44,6 +45,7 @@ def wait_element_invisible(element: tuple, timeout=60, wait=True) -> WebElement:
     except Exception:
         log = "Element not found with locator %s value '%s' after %d seconds" % (locator, value, timeout)
         raise NoSuchElementException(log)
+
 
 def find_elements_list(element: tuple, timeout=60, wait=True) -> list[WebElement]:
     """
@@ -72,6 +74,15 @@ def send_keys(element: tuple, value: str, press_enter=False, clear=False):
         ele.send_keys(Keys.ENTER)
 
 
+def send_keys_timeout(element: tuple, value: str, timeout=60, press_enter=False, clear=False):
+    ele = find_element(element, timeout)
+    if clear:
+        ele.clear()
+    ele.send_keys(value)
+    if press_enter:
+        ele.send_keys(Keys.ENTER)
+
+
 def send_keys_chord(element: tuple, value: str, press_enter=False, clear=False):
     driver: WebDriver = getattr(builtins, "driver")
     ele = find_element(element)
@@ -82,7 +93,6 @@ def send_keys_chord(element: tuple, value: str, press_enter=False, clear=False):
     actions.perform()
     logger.debug(ele.text)
     common.sleep(2)
-
 
 
 def click(element: tuple):

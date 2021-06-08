@@ -75,5 +75,5 @@ class System_page:
 
     def verify_file_download(self, file):
         logger.info(f"Verify {file} is download ")
-        assert file_util.is_file_exist_in_time(file, 60) == True
+        assert file_util.is_file_exist_in_time(file, 160) == True
         pass

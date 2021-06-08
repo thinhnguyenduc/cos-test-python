@@ -6,12 +6,11 @@ from tests.suite2.base_suite2 import BaseSuite2
 
 class TestCase_12243(BaseSuite2):
 
-    def test_case_backup(self):
+    def test_case_restore_backup(self):
         system = System_page()
         system.verify_dashboard()
         file = consts.DOWNLOAD_DIR + "acme_test_ecosystem_configuration.zip"
         system.click_on_administrator_icon()
-
         system.click_on_ultilities()
         file_util.delete_file(file)
         system.click_on_backup_system()
