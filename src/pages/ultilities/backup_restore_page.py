@@ -38,7 +38,7 @@ class System_page:
         driver.execute_script("window.scrollTo(0, 0);")
         action = ActionChains(driver)
         action.move_to_element(element).click().perform()
-       # element.click()
+        # element.click()
         wait_element_invisible(self.PROGRESS_BAR, timeout=100)
         driver.implicitly_wait(15)
         pass
@@ -75,5 +75,4 @@ class System_page:
 
     def verify_file_download(self, file):
         logger.info(f"Verify {file} is download ")
-        assert file_util.is_file_exist_in_time(file, 160) == True
-        pass
+        return file_util.is_file_exist_in_time(file, 160)

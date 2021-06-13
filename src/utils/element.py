@@ -74,7 +74,7 @@ def send_keys(element: tuple, value: str, press_enter=False, clear=False):
         ele.send_keys(Keys.ENTER)
 
 
-def send_keys_timeout(element: tuple, value: str, timeout=60, press_enter=False, clear=False):
+def send_keys_timeout(element: tuple, value: str, *, timeout=60, press_enter=False, clear=False):
     ele = find_element(element, timeout)
     if clear:
         ele.clear()

@@ -1,10 +1,11 @@
 from src.consts import consts
 from src.pages.ultilities.backup_restore_page import System_page
 from src.utils import file_util
-from tests.suite2.base_suite2 import BaseSuite2
+
+from tests.master_test import MasterTest
 
 
-class TestCase_12243(BaseSuite2):
+class TestCase_12243(MasterTest):
 
     def test_case_restore_backup(self):
         system = System_page()
@@ -14,7 +15,7 @@ class TestCase_12243(BaseSuite2):
         system.click_on_ultilities()
         file_util.delete_file(file)
         system.click_on_backup_system()
-        system.verify_file_download(file)
+        assert system.verify_file_download(file)
         system.click_on_restore_configuration(file)
+        # assert system.verify_file_download(file)  # verify text 'Finished' displayed
         file_util.delete_file(file)
-        assert True

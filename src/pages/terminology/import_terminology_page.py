@@ -1,4 +1,7 @@
+
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 
 from src.utils import logger
 from src.utils.element import send_keys, find_element, send_keys_timeout, wait_for_element_displayed
@@ -27,6 +30,7 @@ class ImportTerminologyPage:
     PROGRESS_BAR = (By.CSS_SELECTOR, ".progress-bar")
     LABEL_HEADER = (By.CSS_SELECTOR, ".content-header h1 translate")
     TEXTBOX_DEEP = (By.CSS_SELECTOR, "[name='import_parsing_max_levels']")
+    SELECT_DELIMITER = (By.ID, "delimiter")
 
     # ACTIONS
     # -------
@@ -122,4 +126,10 @@ class ImportTerminologyPage:
     def enter_deep(self, param):
         logger.info("17. Display a popup message and click on Delete button")
         send_keys(self.TEXTBOX_DEEP, param)
+        pass
+
+    def select_field_delimiter(self, param):
+        element = find_element(self.SELECT_DELIMITER)
+        select = Select(element)
+        select.select_by_visible_text(param)
         pass
