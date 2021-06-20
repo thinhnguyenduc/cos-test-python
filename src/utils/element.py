@@ -47,22 +47,22 @@ def wait_element_invisible(element: tuple, timeout=60, wait=True) -> WebElement:
         raise NoSuchElementException(log)
 
 
-def find_elements_list(element: tuple, timeout=60, wait=True) -> list[WebElement]:
-    """
-    Find an available element list with a timeout in seconds.
-    :return: WebElement if found
-    :raise: NoSuchElementException if not found
-    """
-    driver: WebDriver = getattr(builtins, "driver")
-    locator = element[0]
-    value = element[1]
-    try:
-        if wait:
-            return WebDriverWait(driver, timeout).until(exc.visibility_of_element_located((locator, value)))
-        return driver.find_elements(locator, value)
-    except Exception:
-        log = "Element not found with locator %s value '%s' after %d seconds" % (locator, value, timeout)
-        raise NoSuchElementException(log)
+# def find_elements_list(element: tuple, timeout=60, wait=True) -> list[WebElement]:
+#     """
+#     Find an available element list with a timeout in seconds.
+#     :return: WebElement if found
+#     :raise: NoSuchElementException if not found
+#     """
+#     driver: WebDriver = getattr(builtins, "driver")
+#     locator = element[0]
+#     value = element[1]
+#     try:
+#         if wait:
+#             return WebDriverWait(driver, timeout).until(exc.visibility_of_element_located((locator, value)))
+#         return driver.find_elements(locator, value)
+#     except Exception:
+#         log = "Element not found with locator %s value '%s' after %d seconds" % (locator, value, timeout)
+#         raise NoSuchElementException(log)
 
 
 def send_keys(element: tuple, value: str, press_enter=False, clear=False):
