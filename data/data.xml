@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns:jr="http://openrosa.org/javarosa"
+>
+    <h:head>
+        <h:title>form cos mobile</h:title>
+        <model>
+            <instance>
+                <cos_mobile id="cos_mobile">
+                    <name/>
+                    <id_product/>
+                    <dropdown_list/>
+                    <meta>
+                        <instanceID/>
+                    </meta>
+                </cos_mobile>
+            </instance>
+            <bind nodeset="/cos_mobile/name" type="string"/>
+            <bind nodeset="/cos_mobile/id_product" type="string"/>
+            <bind nodeset="/cos_mobile/dropdown_list" type="select1"/>
+            <bind jr:preload="uid" nodeset="/cos_mobile/meta/instanceID" readonly="true()" type="string"/>
+        </model>
+    </h:head>
+    <h:body>
+        <input ref="/cos_mobile/name">
+            <label>Comment</label>
+        </input>
+
+        <select1 ref="/cos_mobile/dropdown_list">
+            <label>Choose Gender</label>
+            <item>
+                <label>Female</label>
+                <value>1</value>
+            </item>
+            <item>
+                <label>Male</label>
+                <value>2</value>
+            </item>
+        </select1>
+    </h:body>
+</h:html>

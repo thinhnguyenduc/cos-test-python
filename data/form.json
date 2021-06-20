@@ -1,0 +1,9 @@
+{
+  "tc01": {
+    "name_tc01": "Create a form ",
+    "type": "Textfied",
+    "name": "",
+    "errorMessage": "This is required field",
+    "entity_textbox": ""
+  }
+}

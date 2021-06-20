@@ -9,7 +9,7 @@ from tests.master_test import MasterTest
 
 class TC1766(MasterTest):
 
-    def a_test_case_01_import_1_level(self):
+    def test_case_01_import_1_level(self):
         terminology = ImportTerminologyPage()
         terminology.click_on_administrator_icon()
         csv_file = consts.PROJECT_ROOT + "/data/import1level.csv"
@@ -17,7 +17,6 @@ class TC1766(MasterTest):
         self.go_to_terminology_page(terminology)
         self.create_terminology(name_terminology, csv_file, terminology)
         self.delete_terminology(name_terminology, terminology)
-        #  common.sleep(10)
         pass
 
     def go_to_terminology_page(self, terminology: ImportTerminologyPage):
@@ -29,7 +28,7 @@ class TC1766(MasterTest):
         pass
 
     def create_terminology(self, name_terminology, csv_file, terminology: ImportTerminologyPage):
-        common.sleep(2)
+
         terminology.enter_name(name_terminology)
         #  terminology.enter_resource_name(name_terminology)
         terminology.enter_csv_file(csv_file)
@@ -54,8 +53,9 @@ class TC1766(MasterTest):
         name_terminology = "ter" + str(randint(50, 1001))
         self.go_to_terminology_page(terminology)
         self.create_terminology_2level(name_terminology, csv_file, terminology)
+        common.sleep(10)
         self.delete_terminology(name_terminology, terminology)
-        #  common.sleep(10)
+
         pass
 
     def create_terminology_2level(self, name_terminology, csv_file, terminology: ImportTerminologyPage):
@@ -63,9 +63,12 @@ class TC1766(MasterTest):
         terminology.enter_name(name_terminology)
         terminology.enter_deep("2")
         terminology.enter_csv_file(csv_file)
+        terminology.select_field_delimiter(";")
         terminology.click_map_icon()
+        common.sleep(5)
         terminology.click_on_run_button()
         terminology.click_on_show_terminology()
+        common.sleep(10)
         terminology.verify_terminology_name(name_terminology)
         terminology.click_on_cancel_button()
         pass

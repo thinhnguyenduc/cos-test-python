@@ -74,7 +74,7 @@ def send_keys(element: tuple, value: str, press_enter=False, clear=False):
         ele.send_keys(Keys.ENTER)
 
 
-def send_keys_timeout(element: tuple, value: str, timeout=60, press_enter=False, clear=False):
+def send_keys_timeout(element: tuple, value: str, *, timeout=60, press_enter=False, clear=False):
     ele = find_element(element, timeout)
     if clear:
         ele.clear()
@@ -105,3 +105,9 @@ def wait_for_element_displayed(element: tuple) -> bool:
         return True
     except NoSuchElementException:
         return False
+
+
+def move_hover_element(element: tuple):
+    driver: WebDriver = getattr(builtins, "driver")
+    hover = ActionChains(driver).move_to_element(element)
+    hover.perform()

@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns:jr="http://openrosa.org/javarosa"
+>
+    <h:head>
+        <h:title>Inventory Form</h:title>
+        <model>
+            <instance>
+                <visit_report id="Inventory_v0.1">
+                    <section_1>
+                        <visit_id/>
+                        <mrf_id/>
+                        <start_of_work_actual/>
+                        <visit_type>22</visit_type>
+                        <date_visit/>
+                        <coordinates/>
+                    </section_1>
+                    <group_vr_has_inventory>
+                        <creation_date_and_time/>
+                        <inventory_type>1</inventory_type>
+                        <check_code_barre/>
+                        <group_vr_has_inventory.inventory_asset-SAMERELATION1 jr:template="">
+                            <section_asset_1>
+                                <asset_coordinates/>
+                                <serial_number/>
+                                <operational_state/>
+                                <asset_status/>
+                                <asset_picture/>
+                            </section_asset_1>
+                            <group_vr_has_inventory.inventory_asset.run_log_link_to_asset>
+                                <reason>7</reason>
+                                <log_date/>
+                                <dg_coordinate/>
+                                <service_hours>2</service_hours>
+                                <generator/>
+                                <picture_before/>
+                            </group_vr_has_inventory.inventory_asset.run_log_link_to_asset>
+                            <group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2>
+                                <section_asset_2>
+                                    <asset_coordinates/>
+                                    <serial_number/>
+                                    <operational_state/>
+                                    <asset_status/>
+                                    <asset_picture/>
+                                </section_asset_2>
+                            </group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2>
+                            <group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3>
+                                <section_asset_3>
+                                    <asset_coordinates/>
+                                    <serial_number/>
+                                    <operational_state/>
+                                    <asset_status/>
+                                    <asset_picture/>
+                                </section_asset_3>
+                            </group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3>
+                            <group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4>
+                                <section_asset_4>
+                                    <asset_coordinates/>
+                                    <serial_number/>
+                                    <operational_state/>
+                                    <asset_status/>
+                                    <asset_picture/>
+                                </section_asset_4>
+                            </group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4>
+                        </group_vr_has_inventory.inventory_asset-SAMERELATION1>
+                    </group_vr_has_inventory>
+                    <group_visit_contains_comment jr:template="">
+                        <section_hc_comment>
+                            <subject/>
+                            <detailed_description/>
+                            <picture/>
+                            <attachment/>
+                        </section_hc_comment>
+                    </group_visit_contains_comment>
+                    <end_of_work_actual/>
+                    <work_complete>true</work_complete>
+                    <meta>
+                        <instanceID/>
+                    </meta>
+                </visit_report>
+            </instance>
+            <bind nodeset="/visit_report/section_1/visit_id" type="string"/>
+            <bind nodeset="/visit_report/section_1/mrf_id" required="true()" type="string"/>
+            <bind constraint=".&lt;= today()" nodeset="/visit_report/section_1/start_of_work_actual" required="true()"
+                  type="dateTime"/>
+            <bind nodeset="/visit_report/section_1/visit_type" type="string"/>
+            <bind calculate="once( /visit_report/section_1/start_of_work_actual )"
+                  nodeset="/visit_report/section_1/date_visit" type="string"/>
+            <bind nodeset="/visit_report/section_1/coordinates" required="true()" type="geopoint"/>
+            <bind calculate="now()" nodeset="/visit_report/group_vr_has_inventory/creation_date_and_time"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/inventory_type" type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/check_code_barre" required="true()" type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1"
+                  relevant="( /visit_report/group_vr_has_inventory/check_code_barre ='1')"/>
+            <bind calculate=" /visit_report/section_1/coordinates "
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/asset_coordinates"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/serial_number"
+                  required="true()" type="barcode"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/operational_state"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/asset_status"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/asset_picture"
+                  type="binary"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/reason"
+                  type="string"/>
+            <bind calculate="once( /visit_report/section_1/start_of_work_actual )"
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/log_date"
+                  type="string"/>
+            <bind calculate=" /visit_report/section_1/coordinates "
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/dg_coordinate"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/service_hours"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/generator"
+                  required="true()" type="decimal"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/picture_before"
+                  type="binary"/>
+            <bind calculate=" /visit_report/section_1/coordinates "
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/asset_coordinates"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/serial_number"
+                  required="true()" type="barcode"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/operational_state"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/asset_status"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/asset_picture"
+                  type="binary"/>
+            <bind calculate=" /visit_report/section_1/coordinates "
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/asset_coordinates"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/serial_number"
+                  required="true()" type="barcode"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/operational_state"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/asset_status"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/asset_picture"
+                  type="binary"/>
+            <bind calculate=" /visit_report/section_1/coordinates "
+                  nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/asset_coordinates"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/serial_number"
+                  required="true()" type="barcode"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/operational_state"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/asset_status"
+                  type="select1"/>
+            <bind nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/asset_picture"
+                  type="binary"/>
+            <bind nodeset="/visit_report/group_visit_contains_comment/section_hc_comment/subject" type="select1"/>
+            <bind nodeset="/visit_report/group_visit_contains_comment/section_hc_comment/detailed_description"
+                  type="string"/>
+            <bind nodeset="/visit_report/group_visit_contains_comment/section_hc_comment/picture" type="binary"/>
+            <bind nodeset="/visit_report/group_visit_contains_comment/section_hc_comment/attachment" type="binary"/>
+            <bind nodeset="/visit_report/end_of_work_actual" required="true()" type="dateTime"/>
+            <bind nodeset="/visit_report/work_complete" type="string"/>
+            <bind jr:preload="uid" nodeset="/visit_report/meta/instanceID" readonly="true()" type="string"/>
+        </model>
+    </h:head>
+    <h:body>
+        <group appearance="field-list" ref="/visit_report/section_1">
+            <label>Visit infomation</label>
+            <input ref="/visit_report/section_1/mrf_id">
+                <label>MRF ID</label>
+            </input>
+            <input ref="/visit_report/section_1/start_of_work_actual">
+                <label>Start of work</label>
+            </input>
+            <input appearance="maps" ref="/visit_report/section_1/coordinates">
+                <label>Localization</label>
+            </input>
+        </group>
+        <group ref="/visit_report/group_vr_has_inventory">
+            <label>Health Check</label>
+            <select1 appearance="quick" ref="/visit_report/group_vr_has_inventory/check_code_barre">
+                <label>Barre code available ?</label>
+                <item>
+                    <label>Yes</label>
+                    <value>1</value>
+                </item>
+                <item>
+                    <label>No</label>
+                    <value>2</value>
+                </item>
+            </select1>
+            <group ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1">
+                <label>Genset log</label>
+                <repeat nodeset="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1">
+                    <group appearance="field-list"
+                           ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1">
+                        <label>Information</label>
+                        <input ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/serial_number">
+                            <label>Serial number</label>
+                        </input>
+                        <select1 appearance="minimal"
+                                 ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/operational_state">
+                            <label>Operational state</label>
+                            <item>
+                                <label>Active</label>
+                                <value>1</value>
+                            </item>
+                            <item>
+                                <label>Inactive</label>
+                                <value>2</value>
+                            </item>
+                            <item>
+                                <label>Damaged</label>
+                                <value>3</value>
+                            </item>
+                            <item>
+                                <label>Obsolete</label>
+                                <value>4</value>
+                            </item>
+                            <item>
+                                <label>Faulty</label>
+                                <value>5</value>
+                            </item>
+                        </select1>
+                        <select1 appearance="minimal"
+                                 ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/asset_status">
+                            <label>Status</label>
+                            <item>
+                                <label>Requested</label>
+                                <value>1</value>
+                            </item>
+                            <item>
+                                <label>Received</label>
+                                <value>2</value>
+                            </item>
+                            <item>
+                                <label>Commissioned</label>
+                                <value>3</value>
+                            </item>
+                            <item>
+                                <label>Decommissioned</label>
+                                <value>4</value>
+                            </item>
+                            <item>
+                                <label>Retired</label>
+                                <value>5</value>
+                            </item>
+                            <item>
+                                <label>Returned</label>
+                                <value>6</value>
+                            </item>
+                        </select1>
+                        <upload appearance="new" mediatype="image/*"
+                                ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/section_asset_1/asset_picture">
+                            <label>Asset picture</label>
+                        </upload>
+                    </group>
+                    <group appearance="field-list"
+                           ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset">
+                        <label>Running log</label>
+                        <input ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/generator">
+                            <label>Running hours</label>
+                        </input>
+                        <upload appearance="new" mediatype="image/*"
+                                ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.run_log_link_to_asset/picture_before">
+                            <label>Picture</label>
+                        </upload>
+                    </group>
+                    <group ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2">
+                        <label>Alternator</label>
+                        <group appearance="field-list"
+                               ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2">
+                            <label>Information</label>
+                            <input ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/serial_number">
+                                <label>Alternator serial number</label>
+                            </input>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/operational_state">
+                                <label>Operational state</label>
+                                <item>
+                                    <label>Active</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Inactive</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Damaged</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Obsolete</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Faulty</label>
+                                    <value>5</value>
+                                </item>
+                            </select1>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/asset_status">
+                                <label>Status</label>
+                                <item>
+                                    <label>Requested</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Received</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Commissioned</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Decommissioned</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Retired</label>
+                                    <value>5</value>
+                                </item>
+                                <item>
+                                    <label>Returned</label>
+                                    <value>6</value>
+                                </item>
+                            </select1>
+                            <upload appearance="new" mediatype="image/*"
+                                    ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION2/section_asset_2/asset_picture">
+                                <label>Asset picture</label>
+                            </upload>
+                        </group>
+                    </group>
+                    <group ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3">
+                        <label>Engine</label>
+                        <group appearance="field-list"
+                               ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3">
+                            <label>Information</label>
+                            <input ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/serial_number">
+                                <label>Engine serial number</label>
+                            </input>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/operational_state">
+                                <label>Operational state</label>
+                                <item>
+                                    <label>Active</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Inactive</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Damaged</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Obsolete</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Faulty</label>
+                                    <value>5</value>
+                                </item>
+                            </select1>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/asset_status">
+                                <label>Status</label>
+                                <item>
+                                    <label>Requested</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Received</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Commissioned</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Decommissioned</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Retired</label>
+                                    <value>5</value>
+                                </item>
+                                <item>
+                                    <label>Returned</label>
+                                    <value>6</value>
+                                </item>
+                            </select1>
+                            <upload appearance="new" mediatype="image/*"
+                                    ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION3/section_asset_3/asset_picture">
+                                <label>Asset picture</label>
+                            </upload>
+                        </group>
+                    </group>
+                    <group ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4">
+                        <label>Controler</label>
+                        <group appearance="field-list"
+                               ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4">
+                            <label>Information</label>
+                            <input ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/serial_number">
+                                <label>Controler serial number</label>
+                            </input>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/operational_state">
+                                <label>Operational state</label>
+                                <item>
+                                    <label>Active</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Inactive</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Damaged</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Obsolete</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Faulty</label>
+                                    <value>5</value>
+                                </item>
+                            </select1>
+                            <select1 appearance="minimal"
+                                     ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/asset_status">
+                                <label>Status</label>
+                                <item>
+                                    <label>Requested</label>
+                                    <value>1</value>
+                                </item>
+                                <item>
+                                    <label>Received</label>
+                                    <value>2</value>
+                                </item>
+                                <item>
+                                    <label>Commissioned</label>
+                                    <value>3</value>
+                                </item>
+                                <item>
+                                    <label>Decommissioned</label>
+                                    <value>4</value>
+                                </item>
+                                <item>
+                                    <label>Retired</label>
+                                    <value>5</value>
+                                </item>
+                                <item>
+                                    <label>Returned</label>
+                                    <value>6</value>
+                                </item>
+                            </select1>
+                            <upload appearance="new" mediatype="image/*"
+                                    ref="/visit_report/group_vr_has_inventory/group_vr_has_inventory.inventory_asset-SAMERELATION1/group_vr_has_inventory.inventory_asset.asset_asset-SAMERELATION4/section_asset_4/asset_picture">
+                                <label>Asset picture</label>
+                            </upload>
+                        </group>
+                    </group>
+                </repeat>
+            </group>
+        </group>
+        <group ref="/visit_report/group_visit_contains_comment">
+            <label>Comment(s) and picture(s)</label>
+            <repeat nodeset="/visit_report/group_visit_contains_comment">
+                <group appearance="field-list" ref="/visit_report/group_visit_contains_comment/section_hc_comment">
+                    <label>Comment detail</label>
+                    <select1 appearance="minimal"
+                             ref="/visit_report/group_visit_contains_comment/section_hc_comment/subject">
+                        <label>Subject</label>
+                        <item>
+                            <label>Power</label>
+                            <value>8</value>
+                        </item>
+                        <item>
+                            <label>Others</label>
+                            <value>7</value>
+                        </item>
+                    </select1>
+                    <input ref="/visit_report/group_visit_contains_comment/section_hc_comment/detailed_description">
+                        <label>Comment</label>
+                    </input>
+                    <upload appearance="new" mediatype="image/*"
+                            ref="/visit_report/group_visit_contains_comment/section_hc_comment/picture">
+                        <label>Picture</label>
+                    </upload>
+                    <upload mediatype="application/*"
+                            ref="/visit_report/group_visit_contains_comment/section_hc_comment/attachment">
+                        <label>Attachment</label>
+                    </upload>
+                </group>
+            </repeat>
+        </group>
+        <input ref="/visit_report/end_of_work_actual">
+            <label>End of work</label>
+        </input>
+    </h:body>
+</h:html>

@@ -14,6 +14,19 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def before_all_tests(request):  # Before all tests, run this function one time only.
+    # my_name = "Thinh"
+    # my_old = 30
+    # aaa = "This is: " + my_name
+    # print(aaa)
+    # bbb = "This is: %s" % my_name
+    # print(bbb)
+    # ccc = "This is: %s, old: %d" % (my_name, my_old)
+    # print(ccc)
+    # ddd = f"This is: {my_name}, old: {my_old}"
+    # print(ddd)
+    # XPATH = "//name[text()='%s'"
+    # new_xpath = XPATH % my_name
+    # print(new_xpath)
     print("\x00")  # print a non-printable character to break a new line on console
     logger.info("=== Start Pytest session ===")
 
