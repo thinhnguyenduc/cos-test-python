@@ -1,28 +1,38 @@
 from random import randint
 
+import allure
+
 from src.pages.form.form_page import FormPage
-from src.utils import common
-from tests.master_test import MasterTest
+from src.utils import common, logger
+from tests.form import BaseTestForm
 
 
-class TestCase1(MasterTest):
+class TCNewForm(BaseTestForm):
 
-    def test_case_create_a_form(self):
-        form = FormPage()
-        self.go_to_formbuilder(form)
-        form_name = "form" + str(randint(50, 1001))
-        resource_name = "textbox_" + str(randint(50, 1001))
-        self.fill_data_form(form_name, form)
-        self.add_texfield(resource_name, form)
-        form.click_save_button()
-        common.sleep(2)
-        self.add_autoincrement(form)
-        common.sleep(2)
-        form.click_save_button()
-        form.click_on_icon_go_to_entity_list()
-        self.add_new_entity(resource_name, form)
-        self.delete_form(form_name, form)
-        common.sleep(15)
+    @allure.title("Create a new form")
+    def test(self):
+        try:
+            # Start test
+            form = FormPage()
+            self.go_to_formbuilder(form)
+            form_name = "form" + str(randint(50, 1001))
+            resource_name = "textbox_" + str(randint(50, 1001))
+            self.fill_data_form(form_name, form)
+            self.add_texfield(resource_name, form)
+            form.click_save_button()
+            common.sleep(2)
+            self.add_autoincrement(form)
+            common.sleep(2)
+            form.click_save_button()
+            form.click_on_icon_go_to_entity_list()
+            self.add_new_entity(resource_name, form)
+            self.delete_form(form_name, form)
+            # End test
+        except Exception as ex:
+            logger.error(ex)
+            self.failures.append(ex)
+        finally:
+            self.screenshot_binary_data.append(self.save_screenshot())
 
     def go_to_formbuilder(self, form: FormPage):
         common.sleep(5)
@@ -72,4 +82,3 @@ class TestCase1(MasterTest):
         assert form.get_title_form_after_searching() == form_name
         form.click_on_delete_icon()
         form.click_delete_button()
-

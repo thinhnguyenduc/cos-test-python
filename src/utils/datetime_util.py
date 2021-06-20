@@ -1,15 +1,7 @@
 import datetime
-import math
-import time
-
-from src.consts import consts
 
 
-def get_timestamp():
-    return math.floor(time.time() * 1000)
-
-
-def get_current_time():
+def current_time():
     return datetime.datetime.now()
 
 
@@ -27,16 +19,3 @@ def pretty_time(seconds):
         return '%s%dm%ds' % (sign_string, minutes, seconds)
     else:
         return '%s%ds' % (sign_string, seconds)
-
-
-def epoch_to_human_date(epoch_time):
-    return datetime.datetime.fromtimestamp(epoch_time / 1000).strftime(consts.DISPLAY_TIME2)[:-3]
-
-
-def ms_to_seconds(milliseconds):
-    return f"{milliseconds / 1000}s"
-
-
-def get_current_date_iso_format():
-    current_date = str(datetime.datetime.now())
-    return datetime.datetime.fromisoformat(current_date).strftime("%Y-%m-%d")

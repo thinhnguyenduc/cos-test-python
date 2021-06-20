@@ -1,5 +1,8 @@
-from tests.master_test import MasterTest
+import allure
+
+from tests import MasterTest
 
 
+@allure.suite("Test suite: Form")
 class BaseTestForm(MasterTest):
-    pass
+    pass  # do nothing

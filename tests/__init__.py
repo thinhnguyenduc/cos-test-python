@@ -6,7 +6,7 @@ import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from src.consts import consts, runtime
-from src.utils import logger, file_util
+from src.utils import logger, file_util, datetime_util
 
 
 @pytest.mark.usefixtures("before_all_tests")
@@ -14,16 +14,14 @@ class MasterTest(unittest.TestCase):
     failures = []
     screenshot_file = ""
     screenshot_binary_data = []
+    start_time = 0
 
     @property
     def driver(self) -> WebDriver:
         return getattr(builtins, "driver")
 
-    def save_screenshot(self):
-        self.driver.save_screenshot(self.screenshot_file)  # save screenshot to 'reports' folder
-        return self.driver.get_screenshot_as_png()  # save the screenshot for Allure attachment
-
     def setUp(self):  # Before each test case
+        self.start_time = datetime_util.current_time()
         test_case_name = self.__class__.__name__.lower()
 
         # Setup a screenshot dir for each test case
@@ -48,8 +46,14 @@ class MasterTest(unittest.TestCase):
         # Final result of the test case: no error, no failure
         is_test_passed = not error and not failure
 
+        elapsed_time = (datetime_util.current_time() - self.start_time).total_seconds()
         logger.info("-----------")
         logger.info("Test status: PASSED") if is_test_passed else logger.warning("Test status: FAILED")
+        logger.info("Time taken : " + datetime_util.pretty_time(elapsed_time))
         for data in self.screenshot_binary_data:
             allure.attach(name="screenshot", body=data, attachment_type=allure.attachment_type.PNG)
         assert is_test_passed and self.failures == []
+
+    def save_screenshot(self):
+        self.driver.save_screenshot(self.screenshot_file)  # save screenshot to 'reports' folder
+        return self.driver.get_screenshot_as_png()  # save the screenshot for Allure attachment
