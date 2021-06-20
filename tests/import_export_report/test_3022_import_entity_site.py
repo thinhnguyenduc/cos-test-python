@@ -5,7 +5,7 @@ from tests.master_test import MasterTest
 
 
 class TC3022(MasterTest):
-    def test_case_01_import_site_widget(self):
+    def _test_case_01_import_site_widget(self):
         entity = Import_entity_page()
         entity.click_on_icon_admin()
         entity.click_on_form_designer_link()

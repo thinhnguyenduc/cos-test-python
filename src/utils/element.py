@@ -105,3 +105,9 @@ def wait_for_element_displayed(element: tuple) -> bool:
         return True
     except NoSuchElementException:
         return False
+
+
+def move_hover_element(element: tuple):
+    driver: WebDriver = getattr(builtins, "driver")
+    hover = ActionChains(driver).move_to_element(element)
+    hover.perform()

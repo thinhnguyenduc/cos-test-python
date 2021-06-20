@@ -40,7 +40,7 @@ class System_page:
         action.move_to_element(element).click().perform()
         # element.click()
         wait_element_invisible(self.PROGRESS_BAR, timeout=100)
-        driver.implicitly_wait(15)
+        #driver.implicitly_wait(15)
         pass
 
     def click_on_restore_configuration(self, file):

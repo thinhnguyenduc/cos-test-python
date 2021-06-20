@@ -1,8 +1,12 @@
+import builtins
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 from src.utils import logger, string_util
-from src.utils.element import find_element, send_keys, wait_for_element_displayed, wait_element_invisible
+from src.utils.element import find_element, send_keys, wait_for_element_displayed, wait_element_invisible, \
+    move_hover_element
 
 
 class FormPage:
@@ -27,6 +31,16 @@ class FormPage:
     BUTTON_NEW_ENTITY = (By.CSS_SELECTOR, "[ng-click='go(newEntryUrl, {})']")
     BUTTON_SAVE_ENTITY_DETAIL = (By.XPATH, "//*[text()='Save']")
     __TEXTBOX_NAME = (By.CSS_SELECTOR, "[name='%s']")
+    CHECKBOX_FORM_SETTING = (By.XPATH, "//*[text()='%s']/../div")
+    TEXTBOX_INTERNAL_SEARCH_FORM = (By.CSS_SELECTOR, "[ng-model='screen.helper.search']")
+    ROW_SEARCH_RESULT = (By.CSS_SELECTOR, "tr.hover-actions")
+    ICON_DELETE_FORM = (By.CSS_SELECTOR, "button.btn-mini")
+    TITLE_FORM = (By.CSS_SELECTOR, "tr a")
+    BUTTON_DELETE_ON_POPUP = (By.CSS_SELECTOR, "[ng-click='ok()']")
+
+    # AutoCreament
+    #TEXTBOX_TITLE = (By.ID, "#fieldTitle")
+    TEXTBOX_PREFIX = (By.ID, "fieldStringPrefix")
 
     def click_on_administrator_icon(self):
         logger.info(f"Click on Admin icon :")
@@ -131,3 +145,64 @@ class FormPage:
         logger.info(f" Click on Save button")
         find_element(self.BUTTON_SAVE_ENTITY_DETAIL).click()
 
+    def click_on_checkbox(self, param):
+        new_xpath = string_util.cook_element(self.CHECKBOX_FORM_SETTING, param)
+        element = find_element(new_xpath)
+        driver = getattr(builtins, "driver")
+        driver.execute_script("window.scrollTo(0, 0);")
+        action = ActionChains(driver)
+        action.move_to_element(element).click().perform()
+
+        pass
+
+    def enter_form_name_on_internal_search(self, param):
+        logger.info(f" Enter form name {param} on internal search")
+        wait_for_element_displayed(self.TEXTBOX_INTERNAL_SEARCH_FORM)
+        send_keys(self.TEXTBOX_INTERNAL_SEARCH_FORM, param, press_enter=True, clear=True)
+        pass
+
+    def move_hover_on_search_result(self, param):
+        logger.info(f" Move over on the search result")
+        new_xpath = string_util.cook_element(self.ROW_SEARCH_RESULT, param)
+        move_hover_element(new_xpath)
+        pass
+
+    def click_on_delete_icon(self):
+        logger.info(f" Click on Delete icon")
+        # wait_for_element_displayed(self.ICON_DELETE_FORM)
+        driver = getattr(builtins, "driver")
+        # element_to_hover_over = find_element(self.ROW_SEARCH_RESULT)
+        # hover = ActionChains(driver).move_to_element(element_to_hover_over)
+        # hover.perform()
+
+        find_element(self.ICON_DELETE_FORM).click()
+        pass
+
+    def get_title_form_after_searching(self):
+        wait_for_element_displayed(self.TITLE_FORM)
+        return find_element(self.TITLE_FORM).text
+
+    def click_delete_button(self):
+        logger.info(f" Click on Delete icon on Popup ")
+        find_element(self.BUTTON_DELETE_ON_POPUP).click()
+        pass
+
+    def move_hover_on_row(self):
+        logger.info(f"Move over on search result")
+        driver = getattr(builtins, "driver")
+        element_to_hover_over = find_element(self.ROW_SEARCH_RESULT)
+        hover = ActionChains(driver).move_to_element(element_to_hover_over)
+        hover.perform()
+
+    # move_hover_element(self.ROW_SEARCH_RESULT)
+    pass
+
+    def enter_title(self, param):
+        logger.info(f" Enter Title")
+        send_keys(self.TEXTBOX_TITLE, param, press_enter=True, clear=True)
+        pass
+
+    def enter_prefix(self, param):
+        logger.info(f" Enter Prefix")
+        send_keys(self.TEXTBOX_PREFIX, param, press_enter=True, clear=True)
+        pass
