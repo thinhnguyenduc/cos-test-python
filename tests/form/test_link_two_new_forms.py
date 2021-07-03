@@ -9,10 +9,11 @@ from tests.form import BaseTestForm
 
 class TCNewForm(BaseTestForm):
 
-    @allure.title("Create a new form")
+    @allure.title("Link two new forms")
     def test(self):
         try:
             # Start test
+            logger.info("Create new form #1")
             form = FormPage()
             self.go_to_formbuilder(form)
             form_name = "form" + str(randint(50, 1001))
@@ -26,7 +27,26 @@ class TCNewForm(BaseTestForm):
             form.click_save_button()
             form.click_on_icon_go_to_entity_list()
             self.add_new_entity(resource_name, form)
-            self.delete_form(form_name, form)
+            # self.delete_form(form_name, form)
+
+            logger.info("Create new form #2")
+            form = FormPage()
+            self.go_to_formbuilder(form)
+            form_name = "form2" + str(randint(50, 1001))
+            resource_name = "textbox_" + str(randint(50, 1001))
+            self.fill_data_form(form_name, form)
+            self.add_texfield(resource_name, form)
+            form.click_save_button()
+            common.sleep(2)
+            self.add_autoincrement(form)
+            common.sleep(2)
+            form.click_save_button()
+            form.click_on_icon_go_to_entity_list()
+            self.add_new_entity(resource_name, form)
+            # self.delete_form(form_name, form)
+
+            logger.info("Link 2 forms")
+            # TODO
             # End test
         except Exception as ex:
             logger.error(ex)
@@ -82,3 +102,13 @@ class TCNewForm(BaseTestForm):
         assert form.get_title_form_after_searching() == form_name
         form.click_on_delete_icon()
         form.click_delete_button()
+
+    def click_on_tab(self, tabname, form: FormPage, form_name1, form_name2):
+        form.click_on_checkbox("Relations")
+        form.click_on_new_icon()
+        form.select_source_form(form_name1)
+        form.select_target_form(form_name2)
+        form.enter_resource_name_relation_popup(form_name1 + "_" + form_name2)
+        form.enter_min("1")
+        form.enter_max("5")
+        form.click_save_button_relation_popup()
