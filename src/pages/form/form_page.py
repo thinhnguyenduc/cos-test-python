@@ -4,12 +4,13 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
+from src.pages.base_page import BasePage
 from src.utils import logger, string_util
 from src.utils.element import find_element, send_keys, wait_for_element_displayed, wait_element_invisible, \
     move_hover_element, wait_for_elements_displayed
 
 
-class FormPage:
+class FormPage(BasePage):
     LINK_FORM = (By.CSS_SELECTOR, "a[href = '#!/formbuilder")
     ICON_ADMIN = (By.CSS_SELECTOR, "a[href='#!/administration']")
     BUTTON_NEW = (By.CSS_SELECTOR, ".btn__formbuilder__addNewEntity")
@@ -57,6 +58,10 @@ class FormPage:
     OPTIONS_AUTHORITY = (By.CSS_SELECTOR, ".ui-select-choices-row-inner div")
     OPTION_AUTHORITY = (By.XPATH, "//*[contains(text(),'%s')]")
     TEXTBOX_ENTITY_AUTHORITY = (By.CSS_SELECTOR, "label[for='%s']+div")
+    # Boolean field
+    CHECKBOX_DEFAULD_BOOLEAN = (By.CSS_SELECTOR, "label[for='%s']+div")
+    # Terminology
+    SELECT_TERMINOLOGY = (By.ID, "fieldTerminology")
 
     def click_on_administrator_icon(self):
         logger.info(f"Click on Admin icon :")
@@ -95,31 +100,25 @@ class FormPage:
         logger.info(f" Enter resource name")
         wait_for_element_displayed(self.TEXTBOX_RESOURCE_NAME)
         send_keys(self.TEXTBOX_RESOURCE_NAME, param)
-        pass
 
-    def select_field_type(self, option_value, resource_name=SELECT_FIELD_TYPE):
-        logger.info(f" Select Field Type of {resource_name}")
-        logger.debug(resource_name)
-        element = find_element(self.SELECT_FIELD_TYPE)
-        select = Select(element)
-        select.select_by_visible_text(option_value)
-
-    pass
-
-    def select_field_type2(self, option_value, resource_name):
-        logger.info(f" Select Field Type of {resource_name}")
-        logger.debug(resource_name)
-        new_locator = (By.ID, resource_name)
-        element = find_element(new_locator)
-        select = Select(element)
-        select.select_by_visible_text(option_value)
-
-    pass
+    def select_field_type(self, option_value, *, resource_name=None, name=None):
+        name_selector = ""
+        if name:
+            name_selector = name
+        else:
+            name_selector = option_value
+        if resource_name:
+            new_locator = (By.ID, resource_name)
+            element = find_element(new_locator)
+            self.select_dropdown(name_selector, element, option_value)
+        else:
+            element = find_element(self.SELECT_FIELD_TYPE)
+            self.select_dropdown(name_selector, element, option_value)
 
     def enter_label(self, param):
         logger.info(f" Enter label{param}  ")
         wait_for_element_displayed(self.TEXTBOX_TITLE)
-        send_keys(self.TEXTBOX_TITLE, param)
+        send_keys(self.TEXTBOX_TITLE, param,press_enter=True)
         pass
 
     def enter_resource_name_field(self, param):
@@ -229,9 +228,6 @@ class FormPage:
         hover = ActionChains(driver).move_to_element(element_to_hover_over)
         hover.perform()
 
-    # move_hover_element(self.ROW_SEARCH_RESULT)
-    pass
-
     def enter_title(self, param):
         logger.info(f" Enter Title")
         send_keys(self.TEXTBOX_TITLE, param, press_enter=True, clear=True)
@@ -293,6 +289,16 @@ class FormPage:
         new_xpath = string_util.cook_element(self.OPTION_AUTHORITY, param)
         find_element(new_xpath).click()
         pass
+
+    def fill_in_select(self, locator, param):
+        element = find_element(locator)
+        select = Select(element)
+        select.select_by_visible_text(param)
+        pass
+
+    def select_terminology(self, value):
+        #  find_element(self.SELECT_TERMINOLOGY).click()
+        self.fill_in_select(self.SELECT_TERMINOLOGY, value)
 
     def fill_autocomplete(self, resource_name, option_value):
         new_xpath = string_util.cook_element(self.TEXTBOX_ENTITY_AUTHORITY, resource_name)
