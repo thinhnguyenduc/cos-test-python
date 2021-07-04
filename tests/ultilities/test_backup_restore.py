@@ -1,11 +1,10 @@
 from src.consts import consts
 from src.pages.ultilities.backup_restore_page import System_page
 from src.utils import file_util
+from tests.form import BaseTestForm
 
-from tests.master_test import MasterTest
 
-
-class TestCase_12243(MasterTest):
+class TestCase_12243(BaseTestForm):
 
     def test_case_restore_backup(self):
         system = System_page()
