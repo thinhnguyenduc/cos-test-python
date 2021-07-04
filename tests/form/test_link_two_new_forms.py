@@ -20,7 +20,7 @@ class TCNewForm(BaseTestForm):
             resource_name = "textbox_" + str(randint(50, 1001))
             self.fill_data_form(form_name, form)
             self.add_texfield(resource_name, form)
-            form.click_save_button()
+
             common.sleep(2)
             self.add_autoincrement(form)
             common.sleep(2)
@@ -72,6 +72,7 @@ class TCNewForm(BaseTestForm):
         form.enter_label(resource_name)
         common.sleep(5)
         form.click_on_checkbox("Short lists")
+        form.click_save_button()
         common.sleep(5)
 
     def add_new_entity(self, resource_name, form: FormPage):
