@@ -2,7 +2,9 @@ import platform
 
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.firefox.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 from src.consts import consts
 
@@ -39,3 +41,14 @@ def create_chrome_driver() -> WebDriver:
         return driver
     except Exception as ex:
         raise Exception("Failed to create Chrome browser driver: %s" % ex)
+
+
+def create_firefox_driver(headless=False):
+    options = Options()
+    options.headless = headless
+    try:
+        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
+        driver.maximize_window()
+        return driver
+    except Exception as ex:
+        raise Exception("Failed to create Firefox browser driver: %s" % ex)

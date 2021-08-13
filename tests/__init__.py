@@ -5,11 +5,11 @@ import allure
 import pytest
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from src.consts import consts, runtime
+from src.consts import consts
 from src.utils import logger, file_util, datetime_util
 
 
-@pytest.mark.usefixtures("before_all_tests")
+@pytest.mark.usefixtures("session_start")
 class MasterTest(unittest.TestCase):
     failures = []
     screenshot_file = ""
@@ -25,7 +25,7 @@ class MasterTest(unittest.TestCase):
         test_case_name = self.__class__.__name__.lower()
 
         # Setup a screenshot dir for each test case
-        screenshot_tc_dir = consts.SCREENSHOT_TC_DIR.format(runtime.env, test_case_name)
+        screenshot_tc_dir = consts.SCREENSHOT_TC_DIR.format(builtins.env, test_case_name)
         file_util.delete_folder(screenshot_tc_dir)
         file_util.create_folder(screenshot_tc_dir)
         self.screenshot_binary_data.clear()

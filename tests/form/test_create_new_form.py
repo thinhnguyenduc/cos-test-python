@@ -8,9 +8,11 @@ from tests.form import BaseTestForm
 
 
 class TCNewForm(BaseTestForm):
+    """
+    Description: Create a new form
+    """
 
-    # @allure.title("Create a new form")
-    def test_01(self):
+    def test(self):
         try:
             # Start test
             form = FormPage()
@@ -33,7 +35,7 @@ class TCNewForm(BaseTestForm):
             self.add_field("File", "file", form)
             self.add_field("Image", "image", form)
             self.add_field("Numeric", "numberic", form)
-            self.add_field("Password","password",form)
+            self.add_field("Password", "password", form)
 
             common.sleep(1)
             form.click_on_icon_go_to_entity_list()
@@ -42,9 +44,9 @@ class TCNewForm(BaseTestForm):
             self.add_entity_authority("Admin admin", "authority", form)
 
             form.click_save_button_on_entity_detail()
-            messsage = form.get_message_save_entity_successful()
-            result = messsage.find("saved")
-            assert messsage.find("saved") != 1
+            message = form.get_message_save_entity_successful()
+            result = message.find("saved")
+            assert message.find("saved") != 1
             common.sleep(3)
             self.delete_form(form_name, form)
             # End test
@@ -86,7 +88,7 @@ class TCNewForm(BaseTestForm):
         form.enter_plural_label(form_name)
         form.enter_resource_name(form_name)
 
-    def add_texfield(self,form: FormPage):
+    def add_texfield(self, form: FormPage):
         form.click_on_new_icon()
         form.select_field_type("Textfield")
         form.enter_label("textfield")
@@ -157,7 +159,6 @@ class TCNewForm(BaseTestForm):
         form.enter_title_dropdown_list(field_title)
         common.sleep(1)
         form.click_save_button()
-
 
     def delete_form(self, form_name, form: FormPage):
         common.sleep(2)

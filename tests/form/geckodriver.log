@@ -1,0 +1,18 @@
+1628780666591	geckodriver	INFO	Listening on 127.0.0.1:57386
+1628780667167	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/2y/v7s0lmyx5_sfvl6kpgk0btl80000gp/T/rust_mozprofilegNqbs3"
+1628780671866	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/2y/v7s0lmyx5_sfvl6kpgk0btl80000gp/T/rust_mozprofilegNqbs3/search.json.mozlz4", (void 0)))
+1628780674215	Marionette	INFO	Listening on port 57397
+1628780760911	geckodriver	INFO	Listening on 127.0.0.1:57506
+1628780761829	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/2y/v7s0lmyx5_sfvl6kpgk0btl80000gp/T/rust_mozprofileQCv7YK"
+1628780762446	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/2y/v7s0lmyx5_sfvl6kpgk0btl80000gp/T/rust_mozprofileQCv7YK/search.json.mozlz4", (void 0)))
+1628780764170	Marionette	INFO	Listening on port 57513
+1628780764208	Marionette	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.

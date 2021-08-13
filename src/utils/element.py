@@ -47,7 +47,7 @@ def wait_element_invisible(element: tuple, timeout=60, wait=True) -> WebElement:
         raise NoSuchElementException(log)
 
 
-def find_elements(element: tuple, timeout=60, wait=True) -> list[WebElement]:
+def find_elements(element: tuple, timeout=60, wait=True):
     """
 #     Find an available element list with a timeout in seconds.
 #     :return: WebElement if found
